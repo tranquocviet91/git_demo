@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <style type="text/css" media="screen">
+        .user_item {
+            color: red;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+    <p>baif 1</p>
+    <ul id="target">
+
+    </ul>
+
+
+    <p>baif 2</p>
+    <div class="box">
+        <label for="id">id</label>
+        <input type="number" id="id" min="0">
+        <br>
+
+        <label for="name">name</label>
+        <input type="text" id="name">
+        <br>
+
+        <label for="id">gender</label>
+        <select name="" id="gender">
+            <option value="1">male</option>
+            <option value="2">female</option>
+        </select>
+        <br>
+
+        <button id="submit">add</button>
+        <p>mảng user sau khi thêm </p>
+
+    </div>
+
+
+    <p>baif 3</p>
+    <label for="string">string</label>
+    <input type="text" id="string">
+    <button id="convert">convert</button>
+
+    <ul id="bai3">
+
+    </ul>
+
+    <p>baif 4</p>
+    <ul id="bai4">
+        <p>cau 1:</p>
+        <span>ho :</span>
+        <p class="c1"></p>
+
+        <span>ten :</span>
+        <p class="ten"></p>
+
+        <p>cau 2:</p>
+        <input type="" name="" id="inp"> <button id="add">add</button> <br>
+
+        <span>mang sau khi them :</span>
+        <p class="newArr"></p>
+
+        <p>cau 3 </p>
+        <table border="1" class="sinhVien">
+            <p>mang ban dau :</p>
+        </table>
+
+        <table border="1" class="sinhVienSauxoa">
+            <p>mang sau khi xoa:</p>
+        </table>
+
+    </ul>
+
+
+
+
+    <script>
+        //b1
+        var user = [
+            { id: 1, name: 'Jame Smith', gender: 1 },
+            { id: 2, name: 'Isla Brown', gender: 2 },
+            { id: 3, name: 'Amelia Davies', gender: 2 },
+            { id: 4, name: 'Jacob Evans', gender: 1 }
+        ]
+
+        var target = document.querySelector('#target')
+        console.log(target);
+        const showUser = (user) => {
+            var htmls = user.map(function (i) {
+                return `<li> ${i.id} - ${i.name}  - ${(i.gender === 1) ? 'male' : 'female'}  </li>`
+            });
+            var user = htmls.join('');
+            target.innerHTML = user;
+        }
+        showUser(user);
+        //b2 
+
+        let idUser = document.querySelector('#id');
+        let nameUser = document.querySelector('#name');
+        let genderUser = document.querySelector('#gender');
+        let submit = document.querySelector('#submit')
+
+        // console.log(user);
+
+        submit.addEventListener('click', () => {
+            if (idUser.value < 0) {
+                idUser.value = idUser.value * -1;
+                // console.log(idUser.value);
+            }
+            user.push({ id: Number(idUser.value), name: nameUser.value, gender: Number(genderUser.value) })
+            console.log(user);
+            const baiso3 = (user) => {
+                var b3 = user.map(function (e) {
+                    return `<li> ${e.id} - ${e.name} - ${(e.gender === 1) ? 'male' : 'female'} </li>`
+                });
+                var bt3 = b3.join('');
+                document.querySelector('#bai3').innerHTML = bt3;
+            }
+            baiso3(user)
+        })
+
+
+
+        //b3
+
+        const stringInput = document.querySelector('#string')
+        const convertString = document.querySelector('#convert')
+        convertString.addEventListener('click', () => {
+            alert("convert thành công")
+            let inputText = String(stringInput.value);
+            let check = inputText.replace(/[\s~`!@#$%^&*()_+\-={[}\]|\\:;"'<,>.?/]+/g, '');
+            console.log(check);
+            // console.log(conVert);
+            stringInput.value = check;
+
+        })
+
+
+        //b4 
+
+        const arr = [
+            'nguyen tien duan',
+            'hoang xuan hieu',
+            'ho si hung',
+            'nguyen duc thuan',
+            'doan ming tung',
+            'le trung hieu'
+        ]
+        // c1 :
+        //ho
+        const ho = (arr) => {
+            var c1 = arr.map(function (k) {
+                return k.slice(0, k.search(' '))
+            })
+            document.querySelector('.c1').innerHTML = c1
+        }
+        ho(arr)
+
+        //ten
+        const ten = (arr) => {
+            var ten = arr.map(function (t) {
+                var lastName = t.slice(t.search(' ') + 1, t.length);
+                return lastName;
+            })
+            // console.log(ten);
+            const last = (ten) => {
+                var name = ten.map((n) => {
+                    return n.slice(n.search(' '), n.length);
+                })
+                // console.log(name);
+                document.querySelector('.ten').innerHTML = name;
+            }
+            last(ten)
+        }
+        ten(arr)
+
+        //c2 :
+        // arr.push('nguyen van a');
+        const add = document.querySelector('#add');
+        const input = document.querySelector('#inp')
+        add.addEventListener('click', () => {
+            arr.push(input.value);
+            const newArr = (arr) => {
+                let mangMoi = arr.map((i) => {
+                    return i + "</br>"
+
+                })
+                // console.log(mangMoi);
+                document.querySelector('.newArr').innerHTML = mangMoi
+            }
+            newArr(arr)
+        })
+        // console.log(arr);
+
+        //c3
+        const dele = document.querySelector('.sinhVien');
+        const newArr = (arr) => {
+            let mangMoi = arr.map((i) => {
+                return i + "</br>"
+
+            })
+            // console.log(mangMoi);
+            dele.innerHTML = mangMoi
+        }
+        newArr(arr)
+
+        const delteArr = arr.shift()
+        
+        const deleSv = document.querySelector('.sinhVienSauxoa');
+        const newSv = (arr) => {
+            let mangMoi = arr.map((i) => {
+                return i + "</br>"
+
+            })
+            // console.log(mangMoi);
+            deleSv.innerHTML = mangMoi
+        }
+        newSv(arr)
+
+    </script>
+</body>
+
+</html>
